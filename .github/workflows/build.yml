@@ -22,4 +22,4 @@ jobs:
           path: |
             ${{ runner.temp }}/Unity-iPhone-unsigned.ipa
             ${{ runner.temp }}/xcodebuild.log
-          retention-days: 14
+          retention-days: 13
