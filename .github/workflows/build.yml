@@ -1,0 +1,25 @@
+name: iOS unsigned ipa
+on:
+  workflow_dispatch:
+    inputs:
+      project_url:
+        description: "Xcode 工程 tar.gz URL（留空用默认 OSS 地址）"
+        required: false
+        default: ""
+jobs:
+  build:
+    runs-on: macos-14
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build unsigned ipa
+        env:
+          PROJECT_URL: ${{ github.event.inputs.project_url }}
+        run: bash scripts/build-unsigned-ipa.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ios-unsigned-ipa
+          path: |
+            ${{ runner.temp }}/Unity-iPhone-unsigned.ipa
+            ${{ runner.temp }}/xcodebuild.log
+          retention-days: 14
